@@ -88,3 +88,7 @@ if __name__ == '__main__':
 
     X, Y = datasets.make_gaussian_quantiles(n_samples=500, n_features=2, n_classes=6)
     main(X, 6)
+
+    X, Y = datasets.make_circles(n_samples=500, factor=0.5)
+    main(X, 4)
+
