@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt
 from sklearn import datasets
 
 
-# def metric(data, clusters):
+# TODO рисовать центры кластеров, перед каждым расчетом новых центров рисовать график
 
 def predict(x, mu):
     r = []
