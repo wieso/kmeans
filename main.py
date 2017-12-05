@@ -7,9 +7,6 @@ from sklearn import datasets
 from dist_metrics import dist_metrics
 
 
-# TODO рисовать центры кластеров, перед каждым расчетом новых центров рисовать график
-# TODO использовать разные метрики расстояния, строка 14. Сейчас евклидово расстояние
-
 def predict(x, mu, **kwargs):
     dist_metric = kwargs['dist_metric']
     if dist_metric != 'power':
