@@ -66,9 +66,9 @@ def plot_data_with_centers(data, centers, **kwargs):
 
     g = sns.FacetGrid(data1, hue='target', palette="Set1", size=5)
     g.map(plt.scatter, 0, 1, s=100, linewidth=.5, edgecolor="white")
-    for ax in g.axes.flat:
-        for center in centers:
-            ax.plot(center[0], center[1], 'kv', markersize=15)
+    # for ax in g.axes.flat:
+    #     for center in centers:
+    #         ax.plot(center[0], center[1], 'kv', markersize=15)
     g.add_legend()
     plt.show()
 
@@ -113,27 +113,61 @@ def main(X, k, dist_metric='euclid', power_root=2, power_power=2, step_plot=True
 
 
 if __name__ == '__main__':
+    n_samples = 5000
+
+    blobs = datasets.make_blobs(n_samples=n_samples, random_state=8, center_box=(-2000, 2000), cluster_std=50)
+    main(blobs[0], 3, step_plot=False)
+
+    # noisy_circles = datasets.make_circles(n_samples=n_samples, factor=.5,
+    #                                       noise=.05)
+    #
+    # main(noisy_circles[0], 2)
+    #
+    # noisy_moons = datasets.make_moons(n_samples=n_samples, noise=.05)
+    #
+    # main(noisy_moons[0], 2)
+    #
+    # blobs = datasets.make_blobs(n_samples=n_samples, random_state=8)
+    # main(blobs[0], 3)
+    #
+    # no_structure = np.random.rand(n_samples, 2), None
+    # main(no_structure[0], 2)
+    #
+    # # Anisotropicly distributed data
+    # random_state = 170
+    # X, y = datasets.make_blobs(n_samples=n_samples, random_state=random_state)
+    # transformation = [[0.6, -0.6], [-0.4, 0.8]]
+    # X_aniso = np.dot(X, transformation)
+    # aniso = (X_aniso, y)
+    #
+    # main(X_aniso, 2)
+    #
+    # # blobs with varied variances
+    # varied = datasets.make_blobs(n_samples=n_samples,
+    #                              cluster_std=[1.0, 2.5, 0.5],
+    #                              random_state=random_state)
+    # main(varied[0], 2)
+
     # X, Y = datasets.make_classification(n_samples=500, n_features=2, n_redundant=0, n_informative=1,
     #                                     n_clusters_per_class=1)
-    # main(X, 6)
-    #
+    # main(X, 2)
+    # 
     # X, Y = datasets.make_classification(n_samples=500, n_features=2, n_redundant=0, n_informative=2,
     #                                     n_clusters_per_class=1)
     # main(X, 3)
-    #
+    # 
     # X, Y = datasets.make_classification(n_samples=500, n_features=2, n_redundant=0, n_informative=2)
     # main(X, 2)
-    #
+    # 
     # X, Y = datasets.make_classification(n_samples=500, n_features=2, n_redundant=0, n_informative=2,
     #                                     n_clusters_per_class=1, n_classes=3)
     # main(X, 3)
-
-    X, Y = datasets.make_blobs(n_samples=500, n_features=2, centers=5)
-    main(X, 5, dist_metric='manhattan')
+    # 
+    # X, Y = datasets.make_blobs(n_samples=500, n_features=2, centers=5)
+    # main(X, 4, dist_metric='manhattan')
 
     # X, Y = datasets.make_gaussian_quantiles(n_samples=500, n_features=2, n_classes=6)
     # main(X, 6)
     #
     # X, Y = datasets.make_circles(n_samples=500, factor=0.5)
     # main(X, 4, dist_metric='manhattan')
-
