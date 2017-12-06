@@ -6,8 +6,6 @@ from sklearn import datasets
 
 from dist_metrics import dist_metrics
 
-import concurrent.futures
-
 
 def predict(x, mu, **kwargs):
     dist_metric = kwargs['dist_metric']
@@ -157,8 +155,8 @@ if __name__ == '__main__':
         {
             'name': 'Blobs with varied variances',
             'X': datasets.make_blobs(n_samples=n_samples,
-                                           cluster_std=[1.0, 2.5, 0.5],
-                                           random_state=random_state)[0],
+                                     cluster_std=[1.0, 2.5, 0.5],
+                                     random_state=random_state)[0],
             'k': 2
         },
         {
@@ -203,6 +201,5 @@ if __name__ == '__main__':
         },
     ]
 
-    with concurrent.futures.ProcessPoolExecutor() as e:
-        for m in models:
-            e.submit(main, **m)
+    for m in models:
+        main(**m)
