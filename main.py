@@ -193,6 +193,6 @@ if __name__ == '__main__':
         },
     ]
 
-    with concurrent.futures.ProcessPoolExecutor(max_workers=8) as e:
+    with concurrent.futures.ProcessPoolExecutor() as e:
         for m in models:
             e.submit(main, **m)
