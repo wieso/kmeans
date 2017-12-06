@@ -72,6 +72,8 @@ def plot_data_with_centers(data, centers, **kwargs):
     #     for center in centers:
     #         ax.plot(center[0], center[1], 'kv', markersize=15)
     g.add_legend()
+    if 'name' in kwargs:
+        plt.title(kwargs['name'])
     plt.show()
 
 
@@ -121,72 +123,80 @@ if __name__ == '__main__':
 
     models = [
         {
+            'name': 'Far Blobs',
             'X':
                 datasets.make_blobs(n_samples=n_samples, random_state=8, center_box=(-2000, 2000), cluster_std=50)[0],
             'k': 3
         },
         {
+            'name': 'Noisy Circles',
             'X':
                 datasets.make_circles(n_samples=n_samples, factor=.5, noise=.05)[0],
             'k': 2
         },
         {
+            'name': 'Noisy Moons',
             'X': datasets.make_moons(n_samples=n_samples, noise=.05)[0],
             'k': 2
         },
         {
+            'name': 'Blobs',
             'X': datasets.make_blobs(n_samples=n_samples, random_state=8)[0],
             'k': 3
         },
         {
-            'X': datasets.make_blobs(n_samples=n_samples, random_state=8)[0],
-            'k': 3
-        },
-        {
+            'name': 'No structure',
             'X': np.random.rand(n_samples, 2),
             'k': 2
         },
-        # Anisotropicly distributed data
         {
+            'name': 'Anisotropicly distributed data',
             'X': np.dot(datasets.make_blobs(n_samples=n_samples, random_state=random_state)[0], transformation),
             'k': 2
         },
-        # blobs with varied variances
         {
+            'name': 'Blobs with varied variances',
             'X': datasets.make_blobs(n_samples=n_samples,
                                            cluster_std=[1.0, 2.5, 0.5],
                                            random_state=random_state)[0],
             'k': 2
         },
         {
+            'name': '2 features, 1 informative, 1 cluster',
             'X': datasets.make_classification(n_samples=500, n_features=2, n_redundant=0, n_informative=1,
-                                                    n_clusters_per_class=1)[0],
+                                              n_clusters_per_class=1)[0],
             'k': 2
         },
         {
+            'name': '2 features, 2 informative, 1 cluster',
             'X': datasets.make_classification(n_samples=500, n_features=2, n_redundant=0, n_informative=2,
-                                                    n_clusters_per_class=1)[0],
+                                              n_clusters_per_class=1)[0],
             'k': 3
         },
         {
+            'name': '2 features, 2 informative',
             'X': datasets.make_classification(n_samples=500, n_features=2, n_redundant=0, n_informative=2)[0],
             'k': 2
         },
         {
+            'name': '2 features, 2 informative, 2 cluster, 3 classes',
             'X': datasets.make_classification(n_samples=500, n_features=2, n_redundant=0, n_informative=2,
-                                                    n_clusters_per_class=1, n_classes=3)[0],
+                                              n_clusters_per_class=1, n_classes=3)[0],
             'k': 3
         },
         {
+            'name': '2 features, 5 centers',
             'X': datasets.make_blobs(n_samples=500, n_features=2, centers=5)[0],
             'k': 4,
             'dist_metric': 'manhattan'
         },
         {
+            'name': '2 features, 6 classes',
             'X': datasets.make_gaussian_quantiles(n_samples=500, n_features=2, n_classes=6)[0],
             'k': 6
         },
         {
+            'name': 'Circles',
             'X': datasets.make_circles(n_samples=500, factor=0.5)[0],
             'k': 4,
             'dist_metric': 'manhattan'
