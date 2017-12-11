@@ -3,6 +3,7 @@ import pandas as pd
 import seaborn as sns
 from matplotlib import pyplot as plt
 from sklearn import datasets
+from sklearn.cluster import KMeans
 
 from dist_metrics import dist_metrics
 
@@ -64,7 +65,7 @@ def plot_data_with_centers(data, centers, **kwargs):
 
     data1['target'] = pd.Series(pred, index=data1.index)
 
-    g = sns.FacetGrid(data1, hue='target', palette="Set1", size=5)
+    g = sns.FacetGrid(data1, hue='target', palette="tab20", size=5)
     g.map(plt.scatter, 0, 1, s=100, linewidth=.5, edgecolor="white")
     # for ax in g.axes.flat:
     #     for center in centers:
@@ -96,26 +97,13 @@ def main(X, k, dist_metric='euclid', power_root=2, power_power=2, step_plot=Fals
     kwargs['power_root'] = power_root
     kwargs['power_power'] = power_power
     kwargs['step_plot'] = step_plot
-    u, clusters = find_centers(X, k, **kwargs)
-    plot_data_with_centers(X, u, **kwargs)
-    # data1 = pd.DataFrame(data=X)
-    # pred = []
-    # for i in X:
-    #     pred.append(predict(i, u))
-    #
-    # data1['target'] = pd.Series(pred, index=data1.index)
-    #
-    # g = sns.FacetGrid(data1, hue='target', palette="Set1", size=5)
-    # g.map(plt.scatter, 0, 1, s=100, linewidth=.5, edgecolor="white")
-    # for ax in g.axes.flat:
-    #     for center in u:
-    #         ax.plot(center[0], center[1], 'kv', markersize=15)
-    # g.add_legend()
-    # plt.show()
+
+    kmeans = KMeans(n_clusters=k, random_state=0).fit(X)
+    plot_data_with_centers(X, kmeans.cluster_centers_, **kwargs)
 
 
 if __name__ == '__main__':
-    n_samples = 5000
+    n_samples = 10000
     random_state = 170
     transformation = [[0.6, -0.6], [-0.4, 0.8]]
 
@@ -123,8 +111,9 @@ if __name__ == '__main__':
         {
             'name': 'Far Blobs',
             'X':
-                datasets.make_blobs(n_samples=n_samples, random_state=8, center_box=(-2000, 2000), cluster_std=50)[0],
-            'k': 3
+                datasets.make_blobs(n_samples=n_samples, centers=25, random_state=0, center_box=(-10000, 10000),
+                                    cluster_std=50)[0],
+            'k': 25
         },
         {
             'name': 'Noisy Circles',
@@ -201,5 +190,7 @@ if __name__ == '__main__':
         },
     ]
 
-    for m in models:
-        main(**m)
+    # for m in models:
+    #     main(**m)
+
+    main(**models[0])
