@@ -102,7 +102,8 @@ def main(X, k, dist_metric='euclid', power_root=2, power_power=2, step_plot=Fals
     plot_data_with_centers(X, kmeans.cluster_centers_, **kwargs)
 
 
-if __name__ == '__main__':
+
+def process_datasets():
     n_samples = 10000
     random_state = 170
     transformation = [[0.6, -0.6], [-0.4, 0.8]]
@@ -190,7 +191,8 @@ if __name__ == '__main__':
         },
     ]
 
-    # for m in models:
-    #     main(**m)
+    for model in models:
+        main(**model)
 
-    main(**models[0])
+if __name__ == '__main__':
+    process_datasets()
